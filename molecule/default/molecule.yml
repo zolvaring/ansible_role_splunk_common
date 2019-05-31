@@ -1,0 +1,31 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: rhel7-instance
+    box: generic/rhel7
+  - name: rhel8-instance
+    box: generic/rhel8
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      vault_identity_list: '~/.vault_password,~/.atlas_it_shared_vault_secret'
+  inventory:
+    host_vars:
+      rhel8-instance:
+        ansible_python_interpreter: /usr/libexec/platform-python
+  lint:
+    name: ansible-lint
+    options:
+      x: ['204']
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
