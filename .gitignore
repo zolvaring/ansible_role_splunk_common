@@ -1,0 +1,16 @@
+*.swp
+**/*.swp
+.vagrant
+**/.vagrant
+.molecule
+**/.molecule
+rheldc.sh
+**/rheldc.sh
+.yamllint
+**/.yamllint
+*.retry
+**/*.retry
+*.pyc
+**/*.pyc
+__pycache__
+**/__pycache__
