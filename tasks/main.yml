@@ -3,6 +3,41 @@
 
 - name: Install Splunk Enterprise RPM
   yum:
-    name: 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=7.2.6&product=splunk&filename=splunk-7.2.6-c0bf0f679ce9-linux-2.6-x86_64.rpm&wget=true'
+    name: "{{ __splunk_rpm_url | default('https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=7.2.6&product=splunk&filename=splunk-7.2.6-c0bf0f679ce9-linux-2.6-x86_64.rpm&wget=true') }}"
     state: present
+  become: true
+
+
+- name: Configure admin user credentials
+  template:
+    src: splunk-user-seed.conf
+    dest: /opt/splunkforwarder/etc/system/local/user-seed.conf
+    owner: splunk
+    group: splunk
+    mode: 0700
+  become: true
+
+
+- name: Create the Splunk forwarder service
+  command: "/opt/splunkforwarder/bin/splunk enable boot-start --accept-license --answer-yes -user {{ __splunkforwarder_os_user | default('splunk') }}"
+  become: true
+
+
+- name: Configure forwarder as deployment client
+  template:
+    src: splunk-deploymentclient.conf
+    dest: /opt/splunkforwarder/etc/system/local/deploymentlcient.conf
+    owner: splunk
+    group: splunk
+    mode: 0755
+  become: true
+  when:
+    - __splunk_deployment_server is defined
+
+
+- name: Start and enable the Splunk forwarder service
+  service:
+    name: SplunkForwarder
+    state: started
+    enabled: yes
   become: true
