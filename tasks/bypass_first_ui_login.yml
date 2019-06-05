@@ -1,0 +1,11 @@
+---
+
+
+- name: Bypass initial login
+  copy:
+    dest: "{{ __splunk_home | default('/opt/splunk') }}/etc/.ui_login"
+    content: ''
+    owner: "{{ __splunk_user | default('splunk') }}"
+    group: "{{ __splunk_group | default('splunk') }}"
+    mode: 0600
+  become: true

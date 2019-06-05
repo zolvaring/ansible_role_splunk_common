@@ -1,0 +1,14 @@
+---
+
+
+- name: Generate the Splunk service file
+  command: >
+    {{ __splunk_home | default(splunk_home) | default('/opt/splunk') }}/bin/splunk
+    enable boot-start
+    --accept-license
+    --answer-yes
+    --no-prompt
+    -user {{ __splunk_user | default(splunk_user) | default('splunk') }}
+  args:
+    creates: /etc/systemd/system/multi-user.target.wants/Splunkd.service
+  become: true

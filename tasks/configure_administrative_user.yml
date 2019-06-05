@@ -1,0 +1,24 @@
+---
+
+
+- name: Test for existing Splunk administrative user
+  command: >
+    grep '^:admin'
+    {{ __splunk_home | default(splunk_home) | default('/opt/splunk') }}/etc/passwd
+  ignore_errors: true
+  changed_when: false
+  register: __splunk_admin_user_test
+  become: true
+
+
+- name: Seed the Splunk administrative user
+  template:
+    src: splunk-user-seed.conf
+    dest: "{{ __splunk_home | default(splunk_home) | default('/opt/splunk') }}/etc/system/local/user-seed.conf"
+    owner: "{{ __splunk_user | default(splunk_user) | default('splunk') }}"
+    group: "{{ __splunk_group | default(splunk_group) | default('splunk') }}"
+    mode: 0600
+  become: true
+  when:
+    - __splunk_admin_user_test is defined
+    - __splunk_admin_user_test.rc is defined and __splunk_admin_user_test.rc != 0

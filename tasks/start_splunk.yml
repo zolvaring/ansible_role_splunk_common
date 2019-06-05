@@ -1,0 +1,9 @@
+---
+
+
+- name: Start and enable the Splunk service
+  service:
+    name: Splunkd
+    state: started
+    enabled: yes
+  become: true

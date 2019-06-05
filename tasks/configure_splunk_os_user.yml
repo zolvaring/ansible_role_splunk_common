@@ -1,0 +1,12 @@
+---
+
+
+# Configure the Splunk OS user. This is the user that the Splunk process will
+# run under. Look for a specific splunk_os_user variable and if it is not
+# found, try to use generic Splunk user variable.
+- name: Configure Splunk OS user
+  lineinfile:
+    path: "{{ __splunk_home | default(splunk_home) | default('/opt/splunk') }}/etc/splunk-launch.conf"
+    regexp: ^SPLUNK_OS_USER.*
+    line: "SPLUNK_OS_USER={{ __splunk_os_user | default(splunk_os_user) | default(__splunk_user) | default(splunk_user) | default('splunk') }}"
+  become: true
