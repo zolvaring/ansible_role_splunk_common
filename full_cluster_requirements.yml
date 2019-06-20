@@ -1,0 +1,13 @@
+---
+
+
+- src: git@firelink:ansible/splunk_common.git
+  scm: git
+  version: master
+  name: splunk_common
+
+
+- src: git@firelink:ansible/splunk_cluster_master.git
+  scm: git
+  version: master
+  name: splunk_cluster_master

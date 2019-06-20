@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: splunk_common
+- hosts: splunk_cluster_masters
+  roles:
+    - role: splunk_cluster_master

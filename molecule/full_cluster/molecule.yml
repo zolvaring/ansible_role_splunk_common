@@ -1,0 +1,34 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: full_cluster_requirements.yml
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: instance-cluster-master
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_cluster_masters
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      vault_identity_list: '~/.vault_password,~/.atlas_it_shared_vault_secret'
+  inventory:
+    host_vars:
+      rhel8-instance:
+        ansible_python_interpreter: /usr/libexec/platform-python
+  lint:
+    name: ansible-lint
+    options:
+      x: ['204']
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
