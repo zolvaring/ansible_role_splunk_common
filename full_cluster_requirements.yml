@@ -11,3 +11,27 @@
   scm: git
   version: master
   name: splunk_cluster_master
+
+
+- src: git@firelink:ansible/splunk_deployment_server.git
+  scm: git
+  version: master
+  name: splunk_deployment_server
+
+
+- src: git@firelink:ansible/splunk_indexer.git
+  scm: git
+  version: master
+  name: splunk_indexer
+
+
+- src: git@firelink:ansible/splunk_search_head_deployer.git
+  scm: git
+  version: master
+  name: splunk_search_head_deployer
+
+
+- src: git@firelink:ansible/splunk_search_head.git
+  scm: git
+  version: master
+  name: splunk_search_head

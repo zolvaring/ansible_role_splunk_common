@@ -15,6 +15,26 @@ platforms:
     groups:
       - splunk_servers
       - splunk_cluster_masters
+  - name: instance-deployment-server
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_deployment_servers
+  - name: instance-cluster-search-head-deployer
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_search_head_deployers
+  - name: instance-cluster-indexer-1
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_indexers
+  - name: instance-cluster-search-head-1
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_search_heads
 provisioner:
   name: ansible
   config_options:

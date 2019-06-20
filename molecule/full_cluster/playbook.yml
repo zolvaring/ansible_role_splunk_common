@@ -1,8 +1,30 @@
 ---
-- name: Converge
-  hosts: all
-  roles:
-    - role: splunk_common
+# - name: Converge
+#   hosts: all
+#   roles:
+#     - role: splunk_common
+
+
 - hosts: splunk_cluster_masters
   roles:
     - role: splunk_cluster_master
+
+
+- hosts: splunk_deployment_servers
+  roles:
+    - role: splunk_deployment_server
+
+
+- hosts: splunk_indexers
+  roles:
+    - role: splunk_indexer
+
+
+- hosts: splunk_search_head_deployers
+  roles:
+    - role: splunk_search_head_deployer
+
+
+- hosts: splunk_search_heads
+  roles:
+    - role: splunk_search_head
