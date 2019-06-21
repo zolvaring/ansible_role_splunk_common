@@ -15,6 +15,10 @@ platforms:
     groups:
       - splunk_servers
       - splunk_cluster_masters
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
   - name: instance-deployment-server
     box: generic/rhel7
     groups:
@@ -30,7 +34,27 @@ platforms:
     groups:
       - splunk_servers
       - splunk_indexers
+  - name: instance-cluster-indexer-2
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_indexers
+  - name: instance-cluster-indexer-3
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_indexers
   - name: instance-cluster-search-head-1
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_search_heads
+  - name: instance-cluster-search-head-2
+    box: generic/rhel7
+    groups:
+      - splunk_servers
+      - splunk_search_heads
+  - name: instance-cluster-search-head-3
     box: generic/rhel7
     groups:
       - splunk_servers
@@ -47,7 +71,7 @@ provisioner:
   lint:
     name: ansible-lint
     options:
-      x: ['204']
+      x: ['204', '301']
 verifier:
   name: testinfra
   lint:

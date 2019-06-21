@@ -10,8 +10,6 @@ lint:
 platforms:
   - name: rhel7-instance
     box: generic/rhel7
-  - name: rhel8-instance
-    box: generic/rhel8
 provisioner:
   name: ansible
   config_options:
